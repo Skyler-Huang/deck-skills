@@ -1,0 +1,35 @@
+{
+  "background": {
+    "type": "linear-gradient",
+    "top": "BFE9FF",
+    "bottom": "FFFDF0",
+    "angle_deg": 90.0
+  },
+  "ink": "3F6478",
+  "accents": [
+    "FFD23F",
+    "FF5D8F",
+    "2EC4E6",
+    "7BD389",
+    "FF6B35",
+    "C25128"
+  ],
+  "source_palette": [
+    "3F6478",
+    "17384D",
+    "FFFFFF",
+    "C25128",
+    "FFFDF0",
+    "BFE9FF",
+    "FFD23F",
+    "FF6B35",
+    "FF5D8F",
+    "C4486E",
+    "1E7F96",
+    "2EC4E6",
+    "7BD389",
+    "4A7F52",
+    "8D5FBB"
+  ],
+  "note": "EXAMPLE ONLY. Regenerate with inspect_deck.py for every new deck. accents must start with a BRIGHT decoration color, not the dark ink."
+}

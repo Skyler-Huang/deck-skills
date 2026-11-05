@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "manifest_version": "1.0",
+  "name": "deck-style-safe-beautify",
+  "title": "PPT 保风格美化",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "Beautify an existing .pptx with themed, semantic decoration while provably preserving text, layout, shapes, color scheme, and filename.",
+  "entrypoint": "SKILL.md",
+  "format": "agent-skills/SKILL.md",
+  "frontmatter": {
+    "required": ["name", "description"],
+    "used": ["name", "description", "license", "compatibility", "metadata"]
+  },
+  "agent_instructions_entrypoint": "AGENTS.md",
+  "agent_instructions_snippet": "AGENTS.snippet.md",
+  "install_targets": [
+    { "platform": "claude-code", "project": ".claude/skills/deck-style-safe-beautify/", "user": "~/.claude/skills/deck-style-safe-beautify/" },
+    { "platform": "codex", "project": ".agents/skills/deck-style-safe-beautify/", "user": "~/.agents/skills/deck-style-safe-beautify/", "alt": "$CODEX_HOME/skills/deck-style-safe-beautify/" },
+    { "platform": "deepseek-harness", "project": ".dsh/skills/deck-style-safe-beautify/ or .agents/skills/deck-style-safe-beautify/", "user": "~/.dsh/skills/deck-style-safe-beautify/ or ~/.agents/skills/deck-style-safe-beautify/", "instructions": "AGENTS.md at project root or ~/.dsh/AGENTS.md" },
+    { "platform": "codebuddy-workbuddy", "user": "~/.codebuddy/skills/deck-style-safe-beautify/" },
+    { "platform": "cursor", "project": ".cursor/skills/deck-style-safe-beautify/ or .agents/skills/deck-style-safe-beautify/", "user": "~/.cursor/skills/deck-style-safe-beautify/" },
+    { "platform": "github-copilot", "project": ".github/skills/deck-style-safe-beautify/ or .agents/skills/deck-style-safe-beautify/", "user": "~/.copilot/skills/deck-style-safe-beautify/" },
+    { "platform": "gemini-cli", "project": ".agents/skills/deck-style-safe-beautify/", "user": "~/.gemini/skills/deck-style-safe-beautify/" },
+    { "platform": "generic-harness", "instructions": "Read AGENTS.md as workspace instructions, or inject SKILL.md body as a system/user prompt. No runtime, no SDK, no network required." }
+  ],
+  "requirements": {
+    "python": ">=3.9",
+    "python_packages": ["python-pptx", "Pillow", "numpy"],
+    "system_commands": ["soffice", "pdftoppm"],
+    "optional": ["git", "network", "image-generation tool", "zip"]
+  },
+  "scripts": [
+    { "path": "scripts/inspect_deck.py", "purpose": "Extract page count, shape signatures, gradient colors, palette, texts, existing timing/transition." },
+    { "path": "scripts/render_deck.py", "purpose": "Independent LibreOffice->PDF->PNG rendering (cache-proof verification)." },
+    { "path": "scripts/verify_zero_change.py", "purpose": "Prove zero changes to text/layout/shapes/gradient and quantify center-vs-edge render difference." },
+    { "path": "scripts/pick_corners.py", "purpose": "Pick the emptiest corner per page from real rendered pixels." },
+    { "path": "scripts/decor_recipe.py", "purpose": "Reusable code-rendered decoration primitives (stars, magnifier, dot grid, highlighter, sticker, cards, letter)." },
+    { "path": "scripts/make_background.py", "purpose": "Rebuild the exact original gradient and composite decoration into per-page backgrounds." },
+    { "path": "scripts/apply_background.py", "purpose": "Insert one full-page decoration picture per slide at spTree index 1, from the pristine original." },
+    { "path": "scripts/strip_watermark.py", "purpose": "Remove generated-image watermarks and cut RGB pseudo-transparent images to clean alpha." },
+    { "path": "scripts/inject_transitions.py", "purpose": "Inject gentle p:transition after clrMapOvr, preserving all original p:timing." }
+  ],
+  "guarantees": [
+    "original shape XML byte-identical",
+    "no page-level p:bg added",
+    "no text changed",
+    "one decoration layer per slide, behind all content",
+    "center text region render difference ~0"
+  ],
+  "non_goals": [
+    "creating a deck from scratch",
+    "rewriting or redesigning content",
+    "changing the user's visual style",
+    "guaranteeing Microsoft PowerPoint compatibility for hand-written OOXML"
+  ]
+}

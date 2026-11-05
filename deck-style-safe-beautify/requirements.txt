@@ -1,0 +1,10 @@
+# deck-style-safe-beautify — Python 依赖
+# pip install -r requirements.txt
+python-pptx>=0.6.21
+Pillow>=9.0
+numpy>=1.21
+
+# 独立渲染验证（系统包，非 pip）：
+#   Ubuntu/Debian : apt-get install -y libreoffice-impress poppler-utils
+#   macOS         : brew install --cask libreoffice && brew install poppler
+# 提供 soffice 与 pdftoppm 两个命令。

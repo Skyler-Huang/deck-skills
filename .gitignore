@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local artifacts
+*.pptx
+*.pdf
+report*.json
+report*.txt
+out/

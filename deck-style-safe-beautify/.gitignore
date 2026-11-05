@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# 运行产物（不要提交）
+inspect.json
+corners.json
+plan.json
+check.md
+pages/
+orig_pages/
+final_pages/
+backgrounds/
+decor/
+assets_clean/
+*.png
+*.jpg
+*.jpeg
+*.pdf
+*.pptx
+*.zip
+*.tar.gz
+!examples/*.md
+
+# 编辑器 / 系统
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# 本地覆盖（不入库）
+AGENTS.local.md
+CLAUDE.local.md
